@@ -5,7 +5,8 @@ use minigrep::search;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let args = match Args::new(args) {
+    let case_sensitive = env::var("CASE_SENSITIVE").unwrap_or_else(|_| "0".to_string());
+    let args = match Args::new(&args, &case_sensitive) {
         Ok(args) => args,
         Err(e) => {
             eprintln!("Error: {}", e);
