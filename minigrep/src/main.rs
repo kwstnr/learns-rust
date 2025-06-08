@@ -22,7 +22,7 @@ fn main() {
         }
     };
 
-    let results = search::search_string(&args.query, &file_content);
+    let results = search::search_string(&args.query, &file_content, args.case_sensitive);
 
     if results.is_empty() {
         println!("No matches found for '{}'", args.query);

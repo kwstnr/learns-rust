@@ -3,11 +3,17 @@ pub struct Result {
     pub content: String,
 }
 
-pub fn search_string(query: &str, content: &str) -> Vec<Result> {
+pub fn search_string(query: &str, content: &str, case_sensitive: bool) -> Vec<Result> {
     content
         .lines()
         .enumerate()
-        .filter(|(_, line)| line.contains(query))
+        .filter(|(_, line)| {
+            if case_sensitive {
+                line.contains(query)
+            } else {
+                line.to_lowercase().contains(&query.to_lowercase())
+            }
+        })
         .map(|(index, line)| Result {
             line_number: (index + 1) as u32,
             content: line.to_string(),
