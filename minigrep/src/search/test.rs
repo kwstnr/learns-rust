@@ -6,10 +6,10 @@ fn search_string_empty_query() {
     let results = search::search_string("", content);
 
     assert_eq!(results.len(), 2);
-    assert_eq!(results[0].1, "This is a test.");
-    assert_eq!(results[0].0, 1);
-    assert_eq!(results[1].1, "Another line.");
-    assert_eq!(results[1].0, 2);
+    assert_eq!(results[0].content, "This is a test.");
+    assert_eq!(results[0].line_number, 1);
+    assert_eq!(results[1].content, "Another line.");
+    assert_eq!(results[1].line_number, 2);
 }
 
 #[test]
@@ -26,6 +26,6 @@ fn search_string_single_match() {
     let results = search::search_string("test", content);
 
     assert_eq!(results.len(), 1);
-    assert_eq!(results[0].0, 1);
-    assert_eq!(results[0].1, "This is a test.");
+    assert_eq!(results[0].line_number, 1);
+    assert_eq!(results[0].content, "This is a test.");
 }
