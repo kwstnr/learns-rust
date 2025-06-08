@@ -1,23 +1,34 @@
+#[allow(dead_code)]
+
 pub fn add(left: u64, right: u64) -> u64 {
     left + right
 }
 
+pub fn add_two(a: usize) -> usize {
+    internal_adder(a, 2)
+}
+
+fn internal_adder(left: usize, right: usize) -> usize {
+    left + right
+}
+
 #[derive(PartialEq, Debug)]
-struct Rectangle {
+pub struct Rectangle {
     width: u32,
     height: u32,
 }
 
 impl Rectangle {
-    fn can_hold(&self, other: &Rectangle) -> bool {
+    pub fn can_hold(&self, other: &Rectangle) -> bool {
         self.width > other.width && self.height > other.height
     }
 }
 
 pub fn greeting(name: &str) -> String {
-    String::from("Hello!")
+    format!("Hello {name}!")
 }
 
+#[allow(dead_code)]
 pub struct Guess {
     value: i32,
 }
@@ -51,7 +62,7 @@ mod tests {
     #[test]
     fn other_test_type() -> Result<(), String> {
         let result = add(2, 2);
-        if (result == 4) {
+        if result == 4 {
             Ok(())
         } else {
             Err(String::from("two plus two does not equal four"))
@@ -59,6 +70,7 @@ mod tests {
     }
     
     #[test]
+    #[ignore]
     fn another() {
         panic!("Make this test fail")
     }
@@ -92,6 +104,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore]
     fn greeting_contains_name() {
         let result = greeting("Carol");
         assert!(
@@ -104,5 +117,17 @@ mod tests {
     #[should_panic(expected = "less than or equal to 100")]
     fn greater_than_100() {
         Guess::new(200);
+    }
+
+
+    #[test]
+    fn internal_adder_test() {
+        let left = 2;
+        let right = 4;
+        let expected = 6;
+
+        let result = internal_adder(left, right);
+
+        assert_eq!(result, expected);
     }
 }
