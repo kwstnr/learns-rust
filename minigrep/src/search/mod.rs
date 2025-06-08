@@ -4,18 +4,15 @@ pub struct Result {
 }
 
 pub fn search_string(query: &str, content: &str) -> Vec<Result> {
-    let mut results = Vec::new();
-    let mut index = 1;
-    for line in content.lines() {
-        if line.contains(query) {
-            results.push(Result {
-                line_number: index.clone(),
-                content: line.to_string(),
-            });
-        }
-        index = index + 1;
-    }
-    results
+    content
+        .lines()
+        .enumerate()
+        .filter(|(_, line)| line.contains(query))
+        .map(|(index, line)| Result {
+            line_number: (index + 1) as u32,
+            content: line.to_string(),
+        })
+        .collect()
 }
 
 #[cfg(test)]
